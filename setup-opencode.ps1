@@ -24,7 +24,7 @@
 # ============================================================
 $Config = @{
     OllamaDownloadUrl   = "https://ollama.com/download/OllamaSetup.exe"
-    OllamaModel         = "deepseek-coder-v2:7b"
+    OllamaModel         = "deepseek-coder-v2:16b"
     OllamaApiBase       = "http://localhost:11434"
     OpenCodeNpmPackage  = "opencode"
     OpenCodeGitHubRepo  = "anomalyco/opencode"
