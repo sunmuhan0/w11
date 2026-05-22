@@ -12,7 +12,7 @@
 .NOTES
     - 需要以管理员权限运行
     - 需要网络连接
-    - DeepSeek Coder V2 7B 模型约 4-5GB，请确保磁盘空间充足
+    - DeepSeek Coder V2 16B 模型约 7-8GB，请确保磁盘空间充足
     - 建议至少 16GB 内存以流畅运行 7B 模型
 .EXAMPLE
     以管理员身份打开 PowerShell，运行：
@@ -211,7 +211,7 @@ function Start-OllamaService {
     }
 
     # 拉取模型
-    Write-Step "正在拉取模型: $($Config.OllamaModel)（约 4-5GB，请耐心等待）..." "RUNNING"
+    Write-Step "正在拉取模型: $($Config.OllamaModel)（约 7-8GB，请耐心等待）..." "RUNNING"
     Write-Step "这可能需要几分钟到几十分钟，取决于网络速度" "INFO"
 
     try {
