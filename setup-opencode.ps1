@@ -1,15 +1,15 @@
 ﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    Windows 一键安装脚本：Ollama + Qwen2.5-Coder + OpenCode
+    Windows 一键安装脚本：Ollama + Qwen3 + OpenCode
 .DESCRIPTION
     1. 安装 Ollama（本地大模型运行框架）
-    2. 拉取 Qwen2.5 14B 模型
+    2. 拉取 Qwen3 14B 模型
     3. 安装 OpenCode（AI 编程助手 CLI 工具）
-    4. 配置 OpenCode 使用本地 Ollama + Qwen2.5 模型
+    4. 配置 OpenCode 使用本地 Ollama + Qwen3 模型
 .NOTES
     需要管理员权限 & 网络连接
-    Qwen2.5 14B 模型约 8-9GB
+    Qwen3 14B 模型约 9-10GB
     建议至少 16GB 内存，RTX 4070 12GB 推荐
 .EXAMPLE
     .\setup-opencode.ps1
@@ -17,7 +17,7 @@
 
 $Config = @{
     OllamaDownloadUrl  = "https://ollama.com/download/OllamaSetup.exe"
-    OllamaModel        = "qwen2.5:14b"
+    OllamaModel        = "qwen3:14b"
     OllamaApiBase      = "http://localhost:11434"
     # 锁定 0.15.31：最新版本需要付费订阅
     OpenCodeVersion    = "0.15.31"
@@ -115,7 +115,7 @@ function Install-Ollama {
 }
 
 function Start-OllamaService {
-    Write-Banner "步骤 2/4：启动 Ollama 并拉取 Qwen2.5 模型"
+    Write-Banner "步骤 2/4：启动 Ollama 并拉取 Qwen3 模型"
 
     try {
         $null = Invoke-WebRequest -Uri $Config.OllamaApiBase -UseBasicParsing -TimeoutSec 3 -ErrorAction Stop
@@ -212,8 +212,20 @@ function Set-OpenCodeConfig {
         model      = "ollama/$($Config.OllamaModel)"
         provider   = @{
             ollama = @{
+                npm   = "@ai-sdk/openai-compatible"
+                name  = "Ollama (local)"
                 options = @{
-                    baseURL = $Config.OllamaApiBase
+                    baseURL = "$($Config.OllamaApiBase)/v1"
+                }
+                models = @{
+                    "$($Config.OllamaModel)" = @{
+                        name      = $Config.OllamaModel
+                        tool_call = $true
+                        limit     = @{
+                            context = 16384
+                            output  = 8192
+                        }
+                    }
                 }
             }
         }
