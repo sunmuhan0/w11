@@ -34,3 +34,12 @@ Windows 本地 AI 编程环境一键配置脚本集。
 ## 说明
 
 所有 AI 模型均在本地通过 Ollama 运行，无需云服务 API Key，完全免费。
+
+## 本地配置
+
+| 组件 | 型号/规格 |
+|------|-----------|
+| CPU | 12th Gen Intel Core i5-12600KF (10核 / 16线程, 3.7GHz) |
+| GPU | NVIDIA GeForce RTX 4070 (12GB VRAM) |
+| 内存 | 16 GB |
+| 系统 | Windows 11 (Build 26100) 64-bit |
